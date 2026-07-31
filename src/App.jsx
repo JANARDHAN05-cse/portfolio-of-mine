@@ -25,17 +25,25 @@ function App() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
+            const target = entry.target;
+            const delay = Number(target.dataset.revealDelay || 0);
+
+            setActiveSection(target.id);
+
+            window.setTimeout(() => {
+              target.classList.add("is-visible");
+            }, delay);
+
+            observer.unobserve(target);
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
 
-    sections.forEach((section) => {
+    sections.forEach((section, index) => {
       section.classList.add("reveal");
+      section.dataset.revealDelay = `${index * 90}`;
       observer.observe(section);
     });
 

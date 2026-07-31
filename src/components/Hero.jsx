@@ -1,3 +1,5 @@
+import heroPhoto from "../assets/linkedin_profile.png";
+
 function Hero() {
   return (
     <section className="hero-section" id="home">
@@ -15,6 +17,12 @@ function Hero() {
           <a href="#projects" className="button button--secondary">
             View case studies
           </a>
+        </div>
+      </div>
+
+      <div className="hero-visual" aria-label="Portrait preview">
+        <div className="hero-visual__frame">
+          <img src={heroPhoto} alt="Janardhan P" className="hero-photo" />
         </div>
       </div>
     </section>
