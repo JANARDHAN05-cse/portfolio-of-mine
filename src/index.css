@@ -1,46 +1,12 @@
-:root {
-  --text: #23252f;
-  --text-h: #23252f;
-  --bg: #f5f3ef;
-  --border: #e7e3dc;
-  --code-bg: #faf8f5;
-  --accent: #5b5fef;
-  --accent-bg: rgba(91, 95, 239, 0.1);
-  --accent-border: rgba(91, 95, 239, 0.2);
-  --social-bg: rgba(250, 248, 245, 0.9);
-  --shadow: rgba(35, 37, 47, 0.08) 0 12px 30px;
+/* Base resets only — all design tokens live in src/App.css */
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-@media (max-width: 1024px) {
-  :root {
-    font-size: 16px;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: var(--sans);
-  background: linear-gradient(180deg, #f5f3ef 0%, #faf8f5 100%);
-  color: #23252f;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 a {
@@ -58,3 +24,4 @@ select {
 #root {
   min-height: 100vh;
 }
+

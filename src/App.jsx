@@ -42,8 +42,15 @@ function App() {
     );
 
     sections.forEach((section, index) => {
-      section.classList.add("reveal");
-      section.dataset.revealDelay = `${index * 90}`;
+      // Each section gets its unique reveal personality
+      if (section.id === "about") {
+        section.classList.add("reveal-slide-left");
+      } else if (section.id === "contact") {
+        section.classList.add("reveal-scale");
+      } else {
+        section.classList.add("reveal");
+      }
+      section.dataset.revealDelay = `${index * 60}`;
       observer.observe(section);
     });
 

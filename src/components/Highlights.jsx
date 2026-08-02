@@ -1,3 +1,6 @@
+import { useEffect, useRef, useState } from "react";
+import { useCountUp } from "../hooks/useCountUp";
+
 const highlights = [
   {
     title: "Full Stack Java Strength",
@@ -7,7 +10,8 @@ const highlights = [
   {
     title: "Problem Solver",
     description:
-      "Solved 160+ LeetCode problems to sharpen algorithmic thinking and data structures skills for real engineering work.",
+      "Solved {count}+ LeetCode problems to sharpen algorithmic thinking and data structures skills for real engineering work.",
+    countTarget: 160,
   },
   {
     title: "Hackathon Winner",
@@ -31,6 +35,69 @@ const highlights = [
   },
 ];
 
+function HighlightCard({ item, index }) {
+  const cardRef = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  const { ref: countRef, value: countVal } = useCountUp({
+    end: item.countTarget ?? 0,
+    duration: 1300,
+    decimals: 0,
+    suffix: "+",
+  });
+
+  useEffect(() => {
+    const node = cardRef.current;
+    if (!node) return;
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
+      setVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  let description;
+  if (item.countTarget) {
+    const parts = item.description.split("{count}+");
+    description = (
+      <>
+        {parts[0]}
+        <strong ref={countRef} className="count-highlight">
+          {countVal}
+        </strong>
+        {parts[1]}
+      </>
+    );
+  } else {
+    description = item.description;
+  }
+
+  return (
+    <article
+      ref={cardRef}
+      className={`highlight-card hcard--animate${visible ? " hcard--visible" : ""}`}
+      style={{ transitionDelay: visible ? `${index * 90}ms` : "0ms" }}
+    >
+      <p className="highlight-card__title">{item.title}</p>
+      <p>{description}</p>
+    </article>
+  );
+}
+
 function Highlights() {
   return (
     <section className="section section--soft" id="highlights">
@@ -40,11 +107,8 @@ function Highlights() {
       </div>
 
       <div className="highlight-grid">
-        {highlights.map((item) => (
-          <article className="highlight-card" key={item.title}>
-            <p className="highlight-card__title">{item.title}</p>
-            <p>{item.description}</p>
-          </article>
+        {highlights.map((item, index) => (
+          <HighlightCard key={item.title} item={item} index={index} />
         ))}
       </div>
     </section>

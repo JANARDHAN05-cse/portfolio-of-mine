@@ -43,10 +43,7 @@ function ProjectsSection() {
 
   useEffect(() => {
     const node = sectionRef.current;
-
-    if (!node) {
-      return undefined;
-    }
+    if (!node) return undefined;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -55,14 +52,11 @@ function ProjectsSection() {
           observer.disconnect();
         }
       },
-      { threshold: 0.18 }
+      { threshold: 0.15 }
     );
 
     observer.observe(node);
-
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -76,8 +70,8 @@ function ProjectsSection() {
         {projects.map((project, index) => (
           <div
             key={project.title}
-            className={`project-card-wrapper ${isVisible ? "is-visible" : ""}`}
-            style={{ transitionDelay: `${index * 120}ms` }}
+            className={`project-card-wrapper${isVisible ? " is-visible" : ""}`}
+            style={{ transitionDelay: `${index * 130}ms` }}
           >
             <ProjectCase {...project} />
           </div>
