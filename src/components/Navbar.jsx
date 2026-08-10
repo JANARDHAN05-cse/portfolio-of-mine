@@ -84,7 +84,7 @@ function Navbar({ activeSection }) {
       <div className="brand">
         <span className="brand-mark">J</span>
         <div>
-          <p className="brand-name">JANARDHAN P</p>
+          <p className="brand-name">Mr.P.Janardhan</p>
           <span className={`brand-subtitle${floating ? " brand-subtitle--hidden" : ""}`}>
             Software Engineering Portfolio
           </span>

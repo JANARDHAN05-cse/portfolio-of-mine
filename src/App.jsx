@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -10,9 +10,34 @@ import Certificates from "./components/Certificates";
 import Education from "./components/Education";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import GraduationHatRope from "./components/GraduationHatRope";
 
 function App() {
   const [activeSection, setActiveSection] = useState("home");
+
+  // Sequential pull handler: smoothly scrolls section by section, and loops back to Home after reach end
+  const handleRopePull = useCallback(() => {
+    const sections = Array.from(document.querySelectorAll("main section[id]"));
+    if (!sections.length) return;
+
+    let currentIndex = 0;
+    let minDistance = Infinity;
+
+    sections.forEach((section, index) => {
+      const rect = section.getBoundingClientRect();
+      const dist = Math.abs(rect.top - 80);
+      if (dist < minDistance) {
+        minDistance = dist;
+        currentIndex = index;
+      }
+    });
+
+    const nextIndex = (currentIndex + 1) % sections.length;
+    const nextSection = sections[nextIndex];
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, []);
 
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll("main section[id]"));
@@ -66,6 +91,8 @@ function App() {
 
   return (
     <div className="app-shell">
+      {/* 3D Graduation Hat & Rope rendered at root app-shell level so it stays static, above header, and persistent across all sections */}
+      <GraduationHatRope onPull={handleRopePull} />
       <Navbar activeSection={activeSection} />
       <main>
         <Hero />

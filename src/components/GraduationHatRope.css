@@ -1,0 +1,40 @@
+.hat-rope-wrapper {
+  /*
+   * Full-height strip pinned to top-right of viewport.
+   * top: 0  →  the anchor ring sits behind the header (invisible)
+   * The rope hangs below the header into view.
+   */
+  position: fixed;
+  top: 0;
+  right: 24px;
+  width: 100px;
+  height: 100vh;
+  pointer-events: auto;
+  z-index: 99;   /* BELOW header (z-index:100) so header is never covered */
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.hat-rope-wrapper:hover {
+  filter: drop-shadow(0 8px 20px rgba(229, 176, 68, 0.55));
+}
+
+.hat-rope-wrapper:active {
+  cursor: grabbing;
+}
+
+.hat-rope-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+  outline: none;
+  display: block;
+  pointer-events: auto !important;
+}
+
+@media (max-width: 767px) {
+  .hat-rope-wrapper {
+    right: 10px;
+    width: 90px;
+  }
+}

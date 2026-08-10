@@ -604,12 +604,14 @@ main {
   align-items: center;
   position: relative;
   padding-top: 28px; /* breathing room above the cap that pokes up */
+  overflow: visible; /* allow rope canvas to extend beyond boundaries */
 }
 
 /* Single relative wrapper so cap absolute-positioning is relative to frame */
 .hero-visual-wrapper {
   position: relative;
   width: min(100%, 360px);
+  overflow: visible; /* allow 3D canvas to overflow without clipping */
 }
 
 /* Warm ambient orb — fills wrapper behind frame */
@@ -964,7 +966,7 @@ main {
 /* Draggable rope-end knot — sits at the natural rope bottom */
 .rope-knot {
   position: absolute;
-  top: 90px;   /* = ROPE_REST — rope's natural hanging endpoint */
+  top: 170px;   /* aligned with the rope's natural hanging endpoint */
   left: 0;     /* rope-wrapper is 28px wide, knot SVG is 28px wide */
   cursor: grab;
   pointer-events: auto;
