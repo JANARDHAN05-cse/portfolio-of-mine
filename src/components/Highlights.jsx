@@ -11,7 +11,7 @@ const highlights = [
     title: "Problem Solver",
     description:
       "Solved {count}+ LeetCode problems to sharpen algorithmic thinking and data structures skills for real engineering work.",
-    countTarget: 160,
+    countTarget: 230,
   },
   {
     title: "Hackathon Winner",
